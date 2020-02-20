@@ -19,7 +19,8 @@ Hash::~Hash() {
    }
 }
 
-void Hash::AddOne(std::string inputName, int inputNumbers[]) {
+void Hash::AddUsingNumber(std::string inputName, int inputNumbers[]) {
+
    //Local Variables
    int addedNumbers = 0;
    int phoneNumber = 0;
@@ -46,15 +47,73 @@ void Hash::AddOne(std::string inputName, int inputNumbers[]) {
    }
 }
 
-void Hash::AddTwo(std::string inputName, int inputNumbers[]) {
+void Hash::AddUsingName(std::string inputName, int inputNumbers[]) {
+
+   //Local Variables
+   int addedNumbers;
+   int phoneNumber;
+
+   //Convert to Ascii value of the character.
+   for(char i : inputName) {
+      addedNumbers += (int)i;
+   }
+
+   //Convert phone number array to phone number.
+   for (int i = 0; i < 10; i++) {   //10 is the number of digits in a phone number.
+      phoneNumber += inputNumbers[i];
+      phoneNumber *= 10;
+   }
+   phoneNumber /= 10; //Remove the last x10, so we have a 10 digit phone number.
+
+   addedNumbers %= 4177; //4177 is the size of the hash table.
+   Node* chainLink = new Node(inputName, phoneNumber);
+   if (hashTable[addedNumbers] == nullptr) {
+      hashTable[addedNumbers] = chainLink;
+   }
+   else {
+      Node* endNode = hashTable[addedNumbers];
+      while (endNode->nextNode != nullptr) {
+         endNode = endNode->nextNode;
+      }
+      endNode->nextNode = chainLink;
+   }
 
 }
 
-void Hash::AddThree(std::string inputName, int inputNumbers[]) {
-   
+void Hash::AddUsingNameAndNumber(std::string inputName, int inputNumbers[]) {
+
 }
 
 std::ostream& operator<<(std::ostream& out, const Hash& hash) {
+
+   //Local Variables
+   int longestChain = 0;
+   int numberOfChains = 0;
+   int countOfChains = 0; //This is the number of chains with a certain length.
+   Hash::Node* chainLink;
+   int chainLength[4177]; //This will be used to store, for each bin, the length of its chain.
+
+   for(int i = 0; i < 4177; i++) { //4177 is the size of the hash table.
+      chainLink = hash.hashTable[i];
+      while(chainLink->nextNode != nullptr) {
+         numberOfChains++;
+      }
+      if(longestChain < numberOfChains) {
+         longestChain = numberOfChains;
+      }
+      chainLength[i] = numberOfChains;
+      numberOfChains = 0;
+   }
+
+   for(int i = 0; i < longestChain; i++) {
+      for(int j = 0; j < 4177; j++) {
+         if(chainLength[j] == i) {
+            numberOfChains++;
+         }
+      }
+      std::cout << "The number of chains with length " << i << " is " << numberOfChains << std::endl;
+      numberOfChains = 0;
+   }
    return out;
 }
 

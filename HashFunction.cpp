@@ -51,9 +51,9 @@ int main(int argc, char** argv) {
 
          //End of entry.
          if(input == '\n') {
-            hashOne.AddOne(name, phoneNumber);
-            hashTwo.AddTwo(name, phoneNumber);
-            hashThree.AddThree(name, phoneNumber);
+            hashOne.AddUsingNumber(name, phoneNumber);
+            hashTwo.AddUsingName(name, phoneNumber);
+            hashThree.AddUsingNameAndNumber(name, phoneNumber);
             name.clear();
             file.get(input);
          }

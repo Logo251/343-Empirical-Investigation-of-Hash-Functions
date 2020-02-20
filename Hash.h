@@ -7,9 +7,9 @@
 class Hash {
 public:
    ~Hash();
-   void AddOne(std::string inputName, int inputNumbers[]);
-   void AddTwo(std::string inputName, int inputNumbers[]);
-   void AddThree(std::string inputName, int inputNumbers[]);
+   void AddUsingNumber(std::string inputName, int inputNumbers[]);
+   void AddUsingName(std::string inputName, int inputNumbers[]);
+   void AddUsingNameAndNumber(std::string inputName, int inputNumbers[]);
    friend std::ostream& operator<<(std::ostream& out, const Hash& hash);
 
 private:
