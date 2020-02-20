@@ -15,9 +15,10 @@ int main(int argc, char** argv) {
    Hash hashTwo;        //This is the second hash add.
    Hash hashThree;      //This is the third hash add.
    std::fstream file;   //This is for reading from the file.
-   int phoneNumber[10]; //Phone number will be stored here.
+   int phoneNumber[10] = { 0 }; //Phone number will be stored here.
    std::string name;    //Name in the entry.
-   char input;   //Used for processing the file, what file.get() reads in to.
+   char input;          //Used for processing the file, what file.get() reads in to.
+   int progress = 0;    //Progress in adding 
 
 
    //If no argument was given.
@@ -33,19 +34,15 @@ int main(int argc, char** argv) {
       while(file.get(input)) {
 
          //Handle the phone number component.
-         if(std::isdigit(file.peek())) {
-            for(int i = 0; i < 10; i++) {
-               file.get(input);
-               if(input == '-') {
-                  file.get(input);
-               }
-               phoneNumber[i] = input;
-            }
+         if(std::isdigit(input)) {
+
+            //Convert to the number expressed as a char, not its ascii value.
+            phoneNumber[progress] = (int)input - 48; //The 48 compensates for the conversion to ascii, 0 starts at 48.
+            progress++;
          }
 
-         //If not phone number condition is handled above, at this point the concern
-         // is if it is a space
-         if(!std::isspace(input)) {
+         //Handles the name component.
+         if(std::isalpha(input)) {
             name += input;
          }
 
@@ -55,7 +52,7 @@ int main(int argc, char** argv) {
             hashTwo.AddUsingName(name, phoneNumber);
             hashThree.AddUsingNameAndNumber(name, phoneNumber);
             name.clear();
-            file.get(input);
+            progress = 0;
          }
       }
    }

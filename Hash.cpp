@@ -1,6 +1,14 @@
 
 #include "Hash.h"
 
+Hash::Hash() {
+   
+   //Assign every element of the array to nullptr.
+   for (int i = 0; i < 4177; i++) { //4177 is the size of the hash table.
+      hashTable[i] = nullptr;
+   }
+}
+
 Hash::~Hash() {
    for (Node* i : hashTable) {
       if (i->nextNode != nullptr) {
@@ -25,13 +33,8 @@ void Hash::AddUsingNumber(std::string inputName, int inputNumbers[]) {
    int addedNumbers = 0;
    int phoneNumber = 0;
 
-   for (int i = 0; i < 10; i++) {   //10 is the number of digits in a phone number.
-      addedNumbers += inputNumbers[i];
-
-      phoneNumber += inputNumbers[i];
-      phoneNumber *= 10;
-   }
-   phoneNumber /= 10; //Remove the last x10, so we have a 10 digit phone number.
+   //Get the phone number in int form.
+   phoneNumber = ConvertIntArrayToInt(inputNumbers);
 
    addedNumbers %= 4177; //4177 is the size of the hash table.
    Node* chainLink = new Node(inputName, phoneNumber);
@@ -50,7 +53,7 @@ void Hash::AddUsingNumber(std::string inputName, int inputNumbers[]) {
 void Hash::AddUsingName(std::string inputName, int inputNumbers[]) {
 
    //Local Variables
-   int addedNumbers;
+   int addedNumbers = 0;
    int phoneNumber;
 
    //Convert to Ascii value of the character.
@@ -58,30 +61,47 @@ void Hash::AddUsingName(std::string inputName, int inputNumbers[]) {
       addedNumbers += (int)i;
    }
 
+   //Get the phone number in int form.
+   phoneNumber = ConvertIntArrayToInt(inputNumbers);
+
+   addedNumbers %= 4177; //4177 is the size of the hash table.
+
+   AddToHashTable(inputName, phoneNumber, addedNumbers);
+}
+
+void Hash::AddUsingNameAndNumber(std::string inputName, int inputNumbers[]) {
+
+}
+
+int Hash::ConvertIntArrayToInt(int inputArray[]) {
+
+   //Local Variables
+   int phoneNumber = 0;
+
    //Convert phone number array to phone number.
    for (int i = 0; i < 10; i++) {   //10 is the number of digits in a phone number.
-      phoneNumber += inputNumbers[i];
+      phoneNumber += inputArray[i];
       phoneNumber *= 10;
    }
    phoneNumber /= 10; //Remove the last x10, so we have a 10 digit phone number.
+   return phoneNumber;
+}
 
-   addedNumbers %= 4177; //4177 is the size of the hash table.
-   Node* chainLink = new Node(inputName, phoneNumber);
-   if (hashTable[addedNumbers] == nullptr) {
-      hashTable[addedNumbers] = chainLink;
+void Hash::AddToHashTable(std::string name, int phoneNumber, int position) {
+
+   //Local Variables
+   Node* chainLink = new Node(name, phoneNumber);
+
+   if (hashTable[position] == nullptr) {
+      hashTable[position] = chainLink;
    }
    else {
-      Node* endNode = hashTable[addedNumbers];
+      Node* endNode = hashTable[position];
       while (endNode->nextNode != nullptr) {
          endNode = endNode->nextNode;
       }
       endNode->nextNode = chainLink;
    }
-
-}
-
-void Hash::AddUsingNameAndNumber(std::string inputName, int inputNumbers[]) {
-
 }
 
 std::ostream& operator<<(std::ostream& out, const Hash& hash) {

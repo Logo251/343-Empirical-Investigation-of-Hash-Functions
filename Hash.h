@@ -6,6 +6,7 @@
 
 class Hash {
 public:
+   Hash();
    ~Hash();
    void AddUsingNumber(std::string inputName, int inputNumbers[]);
    void AddUsingName(std::string inputName, int inputNumbers[]);
@@ -13,6 +14,9 @@ public:
    friend std::ostream& operator<<(std::ostream& out, const Hash& hash);
 
 private:
+   int ConvertIntArrayToInt(int array[]);
+   void AddToHashTable(std::string name, int phoneNumber, int position);
+
    struct Node {
       Node(std::string name, int number);
 
