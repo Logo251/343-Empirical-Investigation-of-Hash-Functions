@@ -64,6 +64,22 @@ void Hash::AddUsingName(std::string inputName, int inputNumbers[]) {
 
 void Hash::AddUsingNameAndNumber(std::string inputName, int inputNumbers[]) {
 
+   //Local Variables
+   int addedNumbers = 0;
+   int phoneNumber = 0;
+
+   //Get the phone number in int form.
+   phoneNumber = ConvertIntArrayToInt(inputNumbers);
+   addedNumbers = phoneNumber;
+
+   //Convert to Ascii value of the character.
+   for (char i : inputName) {
+      addedNumbers += (int)i;
+   }
+
+   addedNumbers %= 4177; //4177 is the size of the hash table.
+
+   AddToHashTable(inputName, phoneNumber, addedNumbers);
 }
 
 int Hash::ConvertIntArrayToInt(int inputArray[]) {
@@ -127,10 +143,11 @@ std::ostream& operator<<(std::ostream& out, const Hash& hash) {
             numberOfChains++;
          }
       }
-      if (i != 0) {
+      if (!numberOfChains == 0) {
          std::cout << "The number of chains with length " << i << " is " << numberOfChains << std::endl;
          numberOfChains = 0;
       }
+      numberOfChains = 0;
    }
    return out;
 }
