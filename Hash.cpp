@@ -35,6 +35,7 @@ void Hash::AddUsingNumber(std::string inputName, int inputNumbers[]) {
 
    //Get the phone number in int form.
    phoneNumber = ConvertIntArrayToInt(inputNumbers);
+   addedNumbers = phoneNumber;
 
    addedNumbers %= 4177; //4177 is the size of the hash table.
 
@@ -54,6 +55,7 @@ void Hash::AddUsingName(std::string inputName, int inputNumbers[]) {
 
    //Get the phone number in int form.
    phoneNumber = ConvertIntArrayToInt(inputNumbers);
+   addedNumbers = phoneNumber;
 
    addedNumbers %= 4177; //4177 is the size of the hash table.
 
@@ -129,6 +131,6 @@ std::ostream& operator<<(std::ostream& out, const Hash& hash) {
 }
 
 Hash::Node::Node(std::string name, int number) {
-   name = this->name;
-   number = this->number;
+   this->name = name;
+   this->number = number;
 }
