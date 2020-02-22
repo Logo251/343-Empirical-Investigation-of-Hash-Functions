@@ -104,18 +104,21 @@ std::ostream& operator<<(std::ostream& out, const Hash& hash) {
    int numberOfChains = 0;
    int countOfChains = 0; //This is the number of chains with a certain length.
    Hash::Node* chainLink;
-   int chainLength[4177]; //This will be used to store, for each bin, the length of its chain.
+   int chainLength[4177] = { 0 }; //This will be used to store, for each bin, the length of its chain.
 
    for(int i = 0; i < 4177; i++) { //4177 is the size of the hash table.
       chainLink = hash.hashTable[i];
-      while(chainLink->nextNode != nullptr) {
-         numberOfChains++;
+      if(chainLink != nullptr) {
+         while(chainLink->nextNode != nullptr) {
+            numberOfChains++;
+            chainLink = chainLink->nextNode;
+         }
+         if(longestChain < numberOfChains) {
+            longestChain = numberOfChains;
+         }
+         chainLength[i] = numberOfChains;
+         numberOfChains = 0;
       }
-      if(longestChain < numberOfChains) {
-         longestChain = numberOfChains;
-      }
-      chainLength[i] = numberOfChains;
-      numberOfChains = 0;
    }
 
    for(int i = 0; i < longestChain; i++) {
@@ -124,8 +127,10 @@ std::ostream& operator<<(std::ostream& out, const Hash& hash) {
             numberOfChains++;
          }
       }
-      std::cout << "The number of chains with length " << i << " is " << numberOfChains << std::endl;
-      numberOfChains = 0;
+      if (i != 0) {
+         std::cout << "The number of chains with length " << i << " is " << numberOfChains << std::endl;
+         numberOfChains = 0;
+      }
    }
    return out;
 }
