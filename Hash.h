@@ -1,3 +1,12 @@
+/*
+File Name:  Hash.h
+Author:     Logan Petersen
+Date:       Febuary 22, 2020
+Purpose:    This is the header file for the Hash class containing Hash's interface.
+            The purpose of this code is to provide the function prototypes for both
+            Hash and its internal structure Node, as well as define some defaults
+            for variables.
+*/
 
 #pragma once
 
