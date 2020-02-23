@@ -1,3 +1,12 @@
+/*
+File Name:  Hash.cpp
+Author:     Logan Petersen
+Date:       Febuary 22, 2020
+Purpose:    The purpose of this code is to be the function definitions for
+            the function prototypes defined in Hash.h. The code allows creation
+            of Hash and its internal structure Vertex, the use of Hash, and the
+            eventual deletion of both objects.
+*/
 
 #include "Hash.h"
 
