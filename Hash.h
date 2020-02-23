@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include <cassert>
 
 class Hash {
 public:
@@ -14,14 +15,14 @@ public:
    friend std::ostream& operator<<(std::ostream& out, const Hash& hash);
 
 private:
-   int ConvertIntArrayToInt(int array[]);
-   void AddToHashTable(std::string name, int phoneNumber, int position);
+   long long int ConvertIntArrayToInt(int array[]);
+   void AddToHashTable(std::string name, long long int phoneNumber, long long int position);
 
    struct Node {
-      Node(std::string name, int number);
+      Node(std::string name, long long int number);
 
       std::string name; //This is the name of the person for the entry given.
-      int number;       //This is the phone number of the person in the entry given.
+      long long int number;       //This is the phone number of the person in the entry given.
       Node* nextNode = nullptr;   //This is a pointer to the next node in the chain, if one exists.
    };
 

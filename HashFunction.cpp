@@ -11,14 +11,14 @@
 int main(int argc, char** argv) {
 
    //Local Variables
-   Hash hashOne;        //This is the first hash add.
-   Hash hashTwo;        //This is the second hash add.
-   Hash hashThree;      //This is the third hash add.
+   Hash hashByNumber;        //This will be hashing using the number.
+   Hash hashByName;        //This will be hashing using the name.
+   Hash hashByNameAndNumber;      //This will be hashing using both name and number.
    std::fstream file;   //This is for reading from the file.
    int phoneNumber[10] = { 0 }; //Phone number will be stored here.
    std::string name;    //Name in the entry.
    char input;          //Used for processing the file, what file.get() reads in to.
-   int progress = 0;    //Progress in adding 
+   int progress = 0;    //Progress in adding.
 
 
    //If no argument was given.
@@ -48,16 +48,16 @@ int main(int argc, char** argv) {
 
          //End of entry.
          if(input == '\n') {
-            hashOne.AddUsingNumber(name, phoneNumber);
-            hashTwo.AddUsingName(name, phoneNumber);
-            hashThree.AddUsingNameAndNumber(name, phoneNumber);
+            hashByNumber.AddUsingNumber(name, phoneNumber);
+            hashByName.AddUsingName(name, phoneNumber);
+            hashByNameAndNumber.AddUsingNameAndNumber(name, phoneNumber);
             name.clear();
             progress = 0;
          }
       }
    }
-   std::cout << hashOne << std::endl;
-   std::cout << hashTwo << std::endl;
-   std::cout << hashThree << std::endl;
+   std::cout << "Hashing using Number:\n" << hashByNumber << std::endl;
+   std::cout << "Hashing using Name:\n" << hashByName << std::endl;
+   std::cout << "Hashing using Name and Number:\n" << hashByNameAndNumber << std::endl;
    return 0;
 }

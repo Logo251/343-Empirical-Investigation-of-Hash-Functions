@@ -11,17 +11,19 @@ Hash::Hash() {
 
 Hash::~Hash() {
    for (Node* i : hashTable) {
-      if (i->nextNode != nullptr) {
-         delete i;
-      }
-      else {
-         Node* thisNode = i;
-         Node* nextNodeStorage = thisNode->nextNode;
+      if (i != nullptr) {
+         if (i->nextNode != nullptr) {
+            delete i;
+         }
+         else {
+            Node* thisNode = i;
+            Node* nextNodeStorage = thisNode->nextNode;
 
-         while (nextNodeStorage != nullptr) {
-            delete thisNode;
-            nextNodeStorage = thisNode;
-            nextNodeStorage = thisNode->nextNode;
+            while (nextNodeStorage != nullptr) {
+               delete thisNode;
+               nextNodeStorage = thisNode;
+               nextNodeStorage = thisNode->nextNode;
+            }
          }
       }
    }
@@ -30,12 +32,14 @@ Hash::~Hash() {
 void Hash::AddUsingNumber(std::string inputName, int inputNumbers[]) {
 
    //Local Variables
-   int addedNumbers = 0;
-   int phoneNumber = 0;
+   long long int addedNumbers = 0;
+   long long int phoneNumber = 0;
 
    //Get the phone number in int form.
    phoneNumber = ConvertIntArrayToInt(inputNumbers);
    addedNumbers = phoneNumber;
+
+   assert(addedNumbers >= 0); //should never be negative.
 
    addedNumbers %= 4177; //4177 is the size of the hash table.
 
@@ -45,8 +49,8 @@ void Hash::AddUsingNumber(std::string inputName, int inputNumbers[]) {
 void Hash::AddUsingName(std::string inputName, int inputNumbers[]) {
 
    //Local Variables
-   int addedNumbers = 0;
-   int phoneNumber;
+   long long int addedNumbers = 0;
+   long long int phoneNumber;
 
    //Convert to Ascii value of the character.
    for(char i : inputName) {
@@ -57,6 +61,8 @@ void Hash::AddUsingName(std::string inputName, int inputNumbers[]) {
    phoneNumber = ConvertIntArrayToInt(inputNumbers);
    addedNumbers = phoneNumber;
 
+   assert(addedNumbers >= 0); //should never be negative.
+
    addedNumbers %= 4177; //4177 is the size of the hash table.
 
    AddToHashTable(inputName, phoneNumber, addedNumbers);
@@ -65,8 +71,8 @@ void Hash::AddUsingName(std::string inputName, int inputNumbers[]) {
 void Hash::AddUsingNameAndNumber(std::string inputName, int inputNumbers[]) {
 
    //Local Variables
-   int addedNumbers = 0;
-   int phoneNumber = 0;
+   long long int addedNumbers = 0;
+   long long int phoneNumber = 0;
 
    //Get the phone number in int form.
    phoneNumber = ConvertIntArrayToInt(inputNumbers);
@@ -77,12 +83,14 @@ void Hash::AddUsingNameAndNumber(std::string inputName, int inputNumbers[]) {
       addedNumbers += (int)i;
    }
 
+   assert(addedNumbers >= 0); //should never be negative.
+
    addedNumbers %= 4177; //4177 is the size of the hash table.
 
    AddToHashTable(inputName, phoneNumber, addedNumbers);
 }
 
-int Hash::ConvertIntArrayToInt(int inputArray[]) {
+long long int Hash::ConvertIntArrayToInt(int inputArray[]) {
 
    //Local Variables
    long long int phoneNumber = 0; //Needs to be this big otherwise phone number breaks on last x10.
@@ -93,10 +101,12 @@ int Hash::ConvertIntArrayToInt(int inputArray[]) {
       phoneNumber *= 10;
    }
    phoneNumber /= 10; //Remove the last x10, so we have a 10 digit phone number.
+
+   assert(phoneNumber >= 0); //should never be negative.
    return phoneNumber;
 }
 
-void Hash::AddToHashTable(std::string name, int phoneNumber, int position) {
+void Hash::AddToHashTable(std::string name, long long int phoneNumber, long long int position) {
 
    //Local Variables
    Node* chainLink = new Node(name, phoneNumber);
@@ -117,42 +127,47 @@ std::ostream& operator<<(std::ostream& out, const Hash& hash) {
 
    //Local Variables
    int longestChain = 0;
-   int numberOfChains = 0;
+   int chainSize = 0;
    int countOfChains = 0; //This is the number of chains with a certain length.
    Hash::Node* chainLink;
-   int chainLength[4177] = { 0 }; //This will be used to store, for each bin, the length of its chain.
+   int lengthStorage[4177] = { 0 }; //Stores the lengths of each bin's chain.
 
+   //This takes the length of each chain, and puts the value in another array in the same position as the other.
    for(int i = 0; i < 4177; i++) { //4177 is the size of the hash table.
       chainLink = hash.hashTable[i];
       if(chainLink != nullptr) {
+         chainSize++; //count the first node.
          while(chainLink->nextNode != nullptr) {
-            numberOfChains++;
+            chainSize++;
             chainLink = chainLink->nextNode;
          }
-         if(longestChain < numberOfChains) {
-            longestChain = numberOfChains;
+         if (i == 480) {
          }
-         chainLength[i] = numberOfChains;
-         numberOfChains = 0;
+         if(longestChain < chainSize) {
+            longestChain = chainSize;
+         }
+         lengthStorage[i] = chainSize;
+         chainSize = 0;
       }
    }
 
-   for(int i = 0; i < longestChain; i++) {
+   //Counts the number of each chain length, and prints it.
+   for(int i = 1; i <= longestChain; i++) {
       for(int j = 0; j < 4177; j++) {
-         if(chainLength[j] == i) {
-            numberOfChains++;
+         if(lengthStorage[j] == i) {
+            countOfChains++;
          }
       }
-      if (!numberOfChains == 0) {
-         std::cout << "The number of chains with length " << i << " is " << numberOfChains << std::endl;
-         numberOfChains = 0;
+      if (countOfChains != 0) {
+         std::cout << "The number of chains with length " << i << " is " << countOfChains << std::endl;
+         countOfChains = 0;
       }
-      numberOfChains = 0;
+      countOfChains = 0;
    }
    return out;
 }
 
-Hash::Node::Node(std::string name, int number) {
+Hash::Node::Node(std::string name, long long int number) {
    this->name = name;
    this->number = number;
 }
