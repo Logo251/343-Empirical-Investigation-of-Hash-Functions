@@ -34,7 +34,7 @@ Hash::~Hash() {
    }
 }
 
-void Hash::AddUsingNumber(std::string inputName, int inputNumbers[]) {
+const void Hash::AddUsingNumber(std::string inputName, int inputNumbers[]) {
 
    //Local Variables
    long long int hashPosition = 0;  //Where this name and phone number should be placed. Can be any non-negative value.
@@ -51,7 +51,7 @@ void Hash::AddUsingNumber(std::string inputName, int inputNumbers[]) {
    AddToHashTable(inputName, phoneNumber, hashPosition);
 }
 
-void Hash::AddUsingName(std::string inputName, int inputNumbers[]) {
+const void Hash::AddUsingName(std::string inputName, int inputNumbers[]) {
 
    //Local Variables
    long long int hashPosition = 0;  //Where this name and phone number should be placed. Can be any non-negative value.
@@ -74,7 +74,7 @@ void Hash::AddUsingName(std::string inputName, int inputNumbers[]) {
    AddToHashTable(inputName, phoneNumber, hashPosition);
 }
 
-void Hash::AddUsingNameAndNumber(std::string inputName, int inputNumbers[]) {
+const void Hash::AddUsingNameAndNumber(std::string inputName, int inputNumbers[]) {
 
    //Local Variables
    long long int hashPosition = 0;  //Where this name and phone number should be placed. Can be any non-negative value.
@@ -98,7 +98,7 @@ void Hash::AddUsingNameAndNumber(std::string inputName, int inputNumbers[]) {
    AddToHashTable(inputName, phoneNumber, hashPosition);
 }
 
-long long int Hash::ConvertIntArrayToInt(int inputArray[]) {
+const long long int Hash::ConvertIntArrayToInt(int inputArray[]) {
 
    //Local Variables
    long long int phoneNumber = 0; //Needs to be this big otherwise phone number breaks on last x10.
