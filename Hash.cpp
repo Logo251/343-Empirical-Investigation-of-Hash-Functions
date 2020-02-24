@@ -38,14 +38,14 @@ Return value:     None.
 Functions Called: None.
 */
 Hash::~Hash() {
-   for (Node* i : hashTable) {
+   for (int i = 0; i < 4177; i++) {
       //Every data point inside hashTable has not been interated through yet.
-      if (i != nullptr) {
-         if (i->nextNode != nullptr) {
-            delete i;
+      if (hashTable[i] != nullptr) {
+         if (hashTable[i]->nextNode != nullptr) {
+            delete hashTable[i];
          }
          else {
-            Node* thisNode = i;
+            Node* thisNode = hashTable[i];
             Node* nextNodeStorage = thisNode->nextNode;
 
             while (nextNodeStorage != nullptr) {
