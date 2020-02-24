@@ -41,7 +41,7 @@ Hash::~Hash() {
    for (int i = 0; i < 4177; i++) {
       //Every data point inside hashTable has not been interated through yet.
       if (hashTable[i] != nullptr) {
-         if (hashTable[i]->nextNode != nullptr) {
+         if (hashTable[i]->nextNode == nullptr) {
             delete hashTable[i];
          }
          else {
@@ -51,7 +51,7 @@ Hash::~Hash() {
             while (nextNodeStorage != nullptr) {
                //Every Node inside this bin has not been iterated through yet.
                delete thisNode;
-               nextNodeStorage = thisNode;
+               thisNode = nextNodeStorage;
                nextNodeStorage = thisNode->nextNode;
             }
          }
