@@ -10,6 +10,14 @@ Purpose:    The purpose of this code is to be the function definitions for
 
 #include "Hash.h"
 
+/*
+Purpose:          Construct the heap when Heap is created without arguments.
+Parameters:       None.
+Preconditions:    This specific Heap object has not been instantiated.
+Postconditions:   Heap object has been instantiated with default values.
+Return value:     None.
+Functions Called: None.
+*/
 Hash::Hash() {
    
    //Assign every element of the array to nullptr.
@@ -21,6 +29,14 @@ Hash::Hash() {
    }
 }
 
+/*
+Purpose:          Delete the memory allocated by this Heap object.
+Parameters:       None.
+Preconditions:    This specific Heap object has left scope.
+Postconditions:   Heap object no longer longer exists and its associated memory has been deallocated.
+Return value:     None.
+Functions Called: None.
+*/
 Hash::~Hash() {
    for (Node* i : hashTable) {
       //Every data point inside hashTable has not been interated through yet.
@@ -43,6 +59,17 @@ Hash::~Hash() {
    }
 }
 
+/*
+Purpose:          Adds a new element to the hash table after computing it using inputNumbers.
+Parameters:       string inputName, the name of the entry. Integer inputNumbers is the phone number in
+                  the entry stored in an array.
+Preconditions:    Heap has been instantiated.
+Postconditions:   Heap's hashTable contains a new entry containing the name and phone number given to it.
+Return value:     None.
+Functions Called: ConverIntArrayToInt(). This is used to convert the given phone number in int form into
+                  a long long int. this is needed for the modulus operator.
+                  AddToHashTable(). This is used to place the entry in the calculated bin.
+*/
 const void Hash::AddUsingNumber(std::string inputName, int inputNumbers[]) {
 
    //Local Variables
@@ -60,6 +87,17 @@ const void Hash::AddUsingNumber(std::string inputName, int inputNumbers[]) {
    AddToHashTable(inputName, phoneNumber, hashPosition);
 }
 
+/*
+Purpose:          Adds a new element to the hash table after computing it using inputName.
+Parameters:       string inputName, the name of the entry. Integer inputNumbers is the phone number in
+                  the entry stored in an array.
+Preconditions:    Heap has been instantiated.
+Postconditions:   Heap's hashTable contains a new entry containing the name and phone number given to it.
+Return value:     None.
+Functions Called: ConverIntArrayToInt(). This is used to convert the given phone number in int form into
+                  a long long int. this is needed for the modulus operator.
+                  AddToHashTable(). This is used to place the entry in the calculated bin.
+*/
 const void Hash::AddUsingName(std::string inputName, int inputNumbers[]) {
 
    //Local Variables
@@ -83,6 +121,17 @@ const void Hash::AddUsingName(std::string inputName, int inputNumbers[]) {
    AddToHashTable(inputName, phoneNumber, hashPosition);
 }
 
+/*
+Purpose:          Adds a new element to the hash table after computing it using inputName and inputNumbers.
+Parameters:       string inputName, the name of the entry. Integer inputNumbers is the phone number in
+                  the entry stored in an array.
+Preconditions:    Heap has been instantiated.
+Postconditions:   Heap's hashTable contains a new entry containing the name and phone number given to it.
+Return value:     None.
+Functions Called: ConverIntArrayToInt(). This is used to convert the given phone number in int form into
+                  a long long int. this is needed for the modulus operator.
+                  AddToHashTable(). This is used to place the entry in the calculated bin.
+*/
 const void Hash::AddUsingNameAndNumber(std::string inputName, int inputNumbers[]) {
 
    //Local Variables
@@ -107,6 +156,16 @@ const void Hash::AddUsingNameAndNumber(std::string inputName, int inputNumbers[]
    AddToHashTable(inputName, phoneNumber, hashPosition);
 }
 
+/*
+Purpose:          Convert an integer array into a long long int. Used for converting the phone number given
+                  through the file read into an integer so it can be modulated.
+Parameters:       Integer array[]. This is converted to a phone number. Must be at most 10 digits, more will
+                  not be read.
+Preconditions:    The Heap has been instantiated.
+Postconditions:   A phone number is given in a long long int.
+Return value:     A phone number is returned in a long long int.
+Functions Called: none.
+*/
 const long long int Hash::ConvertIntArrayToInt(int inputArray[]) {
 
    //Local Variables
@@ -127,6 +186,17 @@ const long long int Hash::ConvertIntArrayToInt(int inputArray[]) {
    return phoneNumber;
 }
 
+/*
+Purpose:          Adds a chain link containing the name and phone number given to the position given.
+Parameters:       String name, the name of the entry. Stored for retrieval if needed later, how a hash works.
+                  Long long integer phoneNumber, the phone number of the entry. Stored for retrieval if needed
+                  later, how a hash works.
+                  Long long int position, where the new node should be placed in the hash table.
+Preconditions:    The Heap has been instantiated.
+Postconditions:   A node is added at the given location containing the given values.
+Return value:     None.
+Functions Called: None.
+*/
 void Hash::AddToHashTable(std::string name, long long int phoneNumber, long long int position) {
 
    //Local Variables
@@ -151,6 +221,16 @@ void Hash::AddToHashTable(std::string name, long long int phoneNumber, long long
    filled = true;
 }
 
+/*
+Purpose:          Output the hash statistics according to specifications.
+Parameters:       out, the ostream that is the stream of characters being sent to the terminal.
+                  heah, the Heap that is going to be printed according to specifications.
+Preconditions:    The Heap has been instantiated.
+Postconditions:   If the Heap is empty, print a statement that Heap is empty.
+                  Otherwise, display the number of chains with their length according to specifications.
+Return value:     out, an ostream to allow statements to be chained according to operator<<'s specification.
+Functions Called: none.
+*/
 std::ostream& operator<<(std::ostream& out, const Hash& hash) {
 
    //Local Variables
@@ -209,6 +289,15 @@ std::ostream& operator<<(std::ostream& out, const Hash& hash) {
    return out;
 }
 
+/*
+Purpose:          Construct a node when Node is created with arguments.
+Parameters:       String name, stored for retrieval if needed later, like a hash would.
+                  Long long int number, stored for retrieval if needed later, like a hash would.
+Preconditions:    This specific Node object has not been instantiated.
+Postconditions:   Node object has been instantiated with the given values values.
+Return value:     None.
+Functions Called: None.
+*/
 Hash::Node::Node(std::string name, long long int number) {
    this->name = name;
    this->number = number;

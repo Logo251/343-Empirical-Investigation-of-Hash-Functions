@@ -2,7 +2,45 @@
    File Name:  HashComparator.cpp
    Author:     Logan Petersen
    Date:       Febuary 22, 2020
-   Purpose:    
+   Purpose:    The purpose of this program is to compare three hash function. It compares their performance based entirely
+               on the number of collisions each hash has. It does this because goal is to, in the end, choose a single hash
+               that is best for data in this format. To achieve this, three different hash methods will be created, timed,
+               and have the number of collisions counted. Then, this data will be compared, and the hash that causes the
+               least amount of collisions will be chosen as the best hash function available. It is assumed that, in this
+               case, the best hash is a hash that lacks collisions, based on the report that will be written including a
+               histogram focusing on number and depth of collisions. All hash functions must write to a hash table with a
+               size of 4,177, which is a prime number, and the hash table must be implemented using separate chaining.
+
+               Provided to solve this problem is a phonebook.txt, a list of names and phone numbers, assumed to be related
+               to the names.
+
+               This list is 46,332 entries long. The file is sorted alphabetically, features many duplicate names and duplicate
+               phone numbers, although no two entries exist with the same name and phone number.
+
+               The only definitive requirement required by the problem is sufficient output to compare various hash functions
+               in a histogram containing the chain length and number of entries with that length.
+
+               Input is phonebook.txt, a file containing 46,332 entries, each one name, a tab, and a phone number, sorted
+               alphabetically. This is provided through a command line argument. There are many duplicate phone numbers and
+               duplicate names, although there does not appear to be two entries with the same name and phone number. The
+               format for the is as follows:
+
+               Jackson, Andrew	(111) 111-1111
+               Jackson, Andrew	(111) 121-1314
+               Jackson, Raphaela	(111) 111-1111
+
+               The output is required to be data sufficient to identify the number of chains and length of those chains, for
+               example there was 30 chains of length 2, the initial node and one collision. Therefore, the output of the program
+               will be a report stating the total numbers of each chain length. An example is below.
+
+               HASH ONE:
+               The number of chains with length 1 is 40000
+               The number of chains with length 2 is 2000
+               The number of chains with length 3 is 2500 
+               The number of chains with length 4 is 13
+
+               HASH TWO:
+               The number of chains with length 4 is 46332
 */
 
 #include "Hash.h"    //My hash function.
