@@ -54,6 +54,7 @@ Hash::~Hash() {
                thisNode = nextNodeStorage;
                nextNodeStorage = thisNode->nextNode;
             }
+            delete thisNode; //Delete last part of chain.
          }
       }
    }
