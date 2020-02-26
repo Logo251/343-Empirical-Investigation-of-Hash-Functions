@@ -36,7 +36,7 @@
                HASH ONE:
                The number of chains with length 1 is 40000
                The number of chains with length 2 is 2000
-               The number of chains with length 3 is 2500 
+               The number of chains with length 3 is 2500
                The number of chains with length 4 is 13
 
                HASH TWO:
@@ -90,8 +90,8 @@ int main(int argc, char** argv) {
 
          //End of entry.
          if(input == '\n') {
-            hashByNumber.AddUsingNumber(name, phoneNumber);
-            hashByName.AddUsingName(name, phoneNumber);
+            //hashByNumber.AddUsingNumber(name, phoneNumber); //Commented out because of program specifications.
+            //hashByName.AddUsingName(name, phoneNumber);     //Commented out because of program specifications.
             hashByNameAndNumber.AddUsingNameAndNumber(name, phoneNumber);
             name.clear();
             progress = 0;
