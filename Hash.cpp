@@ -19,7 +19,7 @@ Return value:     None.
 Functions Called: None.
 */
 Hash::Hash() {
-   
+
    //Assign every element of the array to nullptr.
    for (int i = 0; i < 4177; i++) { //4177 is the size of the hash table.
       //Every data point inside hashTable has not been interated through yet.
@@ -260,7 +260,7 @@ std::ostream& operator<<(std::ostream& out, const Hash& hash) {
             chainSize++;
             chainLink = chainLink->nextNode;
          }
-         
+
          //If new chain is longer than previous best, replace.
          if(longestChain < chainSize) {
             longestChain = chainSize;
@@ -282,11 +282,24 @@ std::ostream& operator<<(std::ostream& out, const Hash& hash) {
          }
       }
       if (countOfChains != 0) {
-         std::cout << "The number of chains with length " << i << " is " << countOfChains << std::endl;
+         std::cout << countOfChains << " chains with length " << i << '\n';
          countOfChains = 0;
       }
       countOfChains = 0;
    }
+
+   //Count the number of empty bins.
+   for(int i = 0; i < 4177; i++) {
+   //We have not iterated through every possible chain length.
+
+      if(lengthStorage[i] == 0) {
+         countOfChains++;
+      }
+   }
+
+   //Display the number of empty bins.
+   std::cout << countOfChains << " chain(s) are empty\n";
+
    return out;
 }
 
