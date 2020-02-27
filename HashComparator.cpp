@@ -98,8 +98,8 @@ int main(int argc, char** argv) {
          }
       }
    }
-   std::cout << "Hashing using Number:\n" << hashByNumber << std::endl;
-   std::cout << "Hashing using Name:\n" << hashByName << std::endl;
+   //std::cout << "Hashing using Number:\n" << hashByNumber << std::endl; //Commented out because of program specifications.
+   //std::cout << "Hashing using Name:\n" << hashByName << std::endl;     //Commented out because of program specifications.
    std::cout << "Hashing using Name and Number:\n" << hashByNameAndNumber << std::endl;
    return 0;
 }
